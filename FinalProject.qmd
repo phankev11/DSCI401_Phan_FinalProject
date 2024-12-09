@@ -1,0 +1,94 @@
+---
+title: 'DSCI401 — Final Project'
+subtitle: 'Identifying and analyzing market trends in the airline industry'
+author: 'Kevin Phan'
+format: 
+  html:
+    self-contained: true
+editor: visual
+execute: 
+  echo: true
+  include: true
+---
+
+## Introduction
+
+For my project, I will be analyzing data from the [United States Department of Transportation (US DOT) Domestic Airline Consumer Airfare Report](https://www.transportation.gov/policy/aviation-policy/domestic-airline-consumer-airfare-report). With the passage of the [Airline Deregulation Act of 1978](https://www.congress.gov/bill/95th-congress/senate-bill/2493), the federal government relinquished its control over airfares, route planning, and market entry. However, with an increasing number of inquiries concerning airfares coming into the US DOT from consumers following deregulation, the US DOT's Office of Aviation Analysis took the initiative to prepare and release the Domestic Airline Consumer Airfare Report, listing the average airfare paid by consumers between domestic city-pair markets. Since 1997, the Office of Aviation Analysis has released this report on a quarterly basis.
+
+With all of this data on airfares easily accessible, I wanted to pose some simple business questions and use the Domestic Airline Consumer Airfare Report to answer these questions. Specifically, I want to investigate the following:
+
+1.  Can we draw conclusions on how different types of domestic city-pair markets perform financially based on which domestic city-pair markets bring in the most (and least) revenue?
+2.  Are there any domestic city-pair markets that are not currently served by a non-stop flight? If so, which of these domestic city-pair markets hold the highest opportunity?
+3.  Can we draw any conclusions or identify any trends on airfare when comparing between domestic city-pair markets where an airline holds a majority of the market share and competitive city-pair markets?
+
+The end goal of this analysis is to be able to uncover and understand some basic market principles that dictate the airline industry. As a frequent flyer, it would be interesting to find out what sorts of features influence the price I am paying for each airline ticket.
+
+## Methods
+
+[Table 6](https://data.transportation.gov/Aviation/Consumer-Airfare-Report-Table-6-Contiguous-State-C/yj5y-b2ir/about_data) of the Domestic Airline Consumer Airfare Report, which contains airfare and ridership data on all U.S. domestic city-pair markets with an average daily ridership of at least 10 passengers, will be central to the analysis being carried out and answering the listed questions.
+
+## Results
+
+## Conclusions
+
+## Appendix
+
+### Code
+
+```{r echo = TRUE, output = FALSE}
+# Load required libraries for the project --------
+library(tidyverse)
+```
+
+```{r echo = TRUE, output = FALSE}
+# Load datasets for the project ------------------
+tab1a <- read.csv('Data/usdot_car_tab1a.csv')
+tab6 <- read.csv('Data/usdot_car_tab6.csv')
+airports <- read.csv('https://raw.githubusercontent.com/jpatokal/openflights/master/data/airports.dat', header = FALSE)
+airlines <- read.csv('https://raw.githubusercontent.com/jpatokal/openflights/master/data/airlines.dat', header = FALSE)
+routes <- read.csv('https://raw.githubusercontent.com/jpatokal/openflights/master/data/routes.dat', header = FALSE)
+```
+
+```{r echo = TRUE, output = FALSE}
+# Fix missing values from import -----------------
+colnames(airports) <- c('airport_id',
+                        'name',
+                        'city',
+                        'country',
+                        'IATA',
+                        'ICAO',
+                        'latitude',
+                        'longitude',
+                        'altitude',
+                        'timezone',
+                        'DST',
+                        'tz',
+                        'type',
+                        'source')
+colnames(airlines) <- c('airline_id',
+                        'name',
+                        'alias',
+                        'IATA',
+                        'ICAO',
+                        'callsign',
+                        'country',
+                        'active')
+colnames(routes) <- c('airline',
+                      'airline_id',
+                      'source_airport',
+                      'source_airport_id',
+                      'dest_airport',
+                      'dest_airport_id',
+                      'codeshare',
+                      'stops',
+                      'equipment')
+airports[airports == '\\N'] <- NA
+airlines[airlines == '\\N'] <- NA
+routes[routes == '\\N'] <- NA
+```
+
+```{r}
+
+```
+
+### Figures

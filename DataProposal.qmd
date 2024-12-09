@@ -1,0 +1,65 @@
+---
+title: "Project Data Proposal"
+author: "Kevin Phan"
+format: 
+  html:
+    self-contained: true
+editor: visual
+execute: 
+  echo: true
+  include: true
+---
+
+### Project Proposal
+
+I want to use aviation industry datasets from the United States Department of Transportation (<https://www.transportation.gov/policy/aviation-policy/domestic-airline-consumer-airfare-report>) and OpenFlights (<https://openflights.org/data.php>) to make some basic analyses on the commercial aviation market. Specifically, from the US DOT, I want to use Table 6 of the Consumer Airfare Report which holds fare data on all US domestic flight city-pairs that average at least 10 passengers a day, and from OpenFlights, the `routes.dat` dataset which includes nonstop city routes and which airlines service them. OpenFlights also has the `airports.dat` and `airlines.dat` datasets that hold airport codes and names and airline codes and names, respectively, which can be joined to `routes.dat` and may be helpful in the final report.
+
+### Questions of Interest
+
+1.  What are the some of the highest and lowest revenue domestic city-pairs in the United States? Can we draw any conclusions on what type of routes these are (i.e., are they business-oriented routes or leisure-oriented routes)?
+2.  Are there any city-pairs that are not served by a nonstop flight? If so, which "under-served" city-pairs have the highest opportunity cost (i.e., the highest revenue)?
+3.  Are there any differences in fares or other market trends we can uncover in city-pairs where an airline holds a majority (\>50%) of the market share vs. "competitive" city-pairs?
+
+### Potential Complications
+
+-   The datasets I will be using are quite large, so it may be a hassle to audit the data and ensure it conforms to tidydata format.
+
+-   I need to check how the airline and airport codes are derived from both datasets to see if I am able to join the US DOT data and the OpenFlights data together.
+
+-   The US DOT Domestic Airline Consumer Airfare Report contains 8 tables of data, so there may be a chance that there could be a better dataset from the US DOT for this analysis. I will have to look over those datasets to make sure.
+
+-   The OpenFlights datasets do not have column names, so I will have to manually add those in
+
+### Data
+
+The US DOT dataset includes 617305 city-pairs, which can be compared to the 67662 direct flights in the `routes.dat` dataset for the analysis.
+
+For the report, I plan on pulling airport names and airline names from `airports.dat` and `airlines.dat`.
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+DOT <- read.csv('data/Consumer_Airfare_Report__Table_6_-_Contiguous_State_City-Pair_Markets_That_Average_At_Least_10_Passengers_Per_Day_20241006.csv')
+DOT %>%
+  glimpse()
+```
+
+```{r}
+routes <- read.csv('https://raw.githubusercontent.com/jpatokal/openflights/master/data/routes.dat')
+routes %>%
+  glimpse()
+```
+
+```{r}
+airports <- read.csv('https://raw.githubusercontent.com/jpatokal/openflights/master/data/airports.dat')
+airports %>%
+  glimpse()
+```
+
+```{r}
+airlines <- read.csv('https://raw.githubusercontent.com/jpatokal/openflights/master/data/airlines.dat')
+airlines %>%
+  glimpse()
+```
